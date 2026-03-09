@@ -9,17 +9,22 @@ def f2(x):
 
 def chord(a, b, eps, f):
     if f(a) * f(b) > 0:
-        return None  # нет смены знака
+        return None
 
-    while abs(b - a) > eps:
+    x_old = a
+
+    while True:
         x = a - f(a) * (b - a) / (f(b) - f(a))
-        print("n")
-        if f(a) * f(x) <= 0:
+
+        if abs(x - x_old) < eps:
+            return x
+
+        if f(a) * f(x) < 0:
             b = x
         else:
             a = x
 
-    return (a + b) / 2
+        x_old = x
 
 
 print("Корень на промежутке: [0.1; 0.5]: ", chord(0.1, 0.5, 1e-6, f1))
